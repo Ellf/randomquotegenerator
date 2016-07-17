@@ -1,23 +1,46 @@
+// invoke a stricter javascript coding practice
 "use strict";
+
+// declare global variables
+var timeoutID, pickedArr;
+pickedArr = [1];
 
 // event listener to respond to "Show another quote" button clicks
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
-var timeoutID;
+
+// callback to update the quote every 30 seconds if button isn't pressed
 timeoutID = window.setTimeout(function () {
     printQuote();
 }, 30000);
 
+// the get random quote function
+// No parameters
+// returns the object with the quote data within
 function getRandomQuote() {
 
+    // declare some local variables
+    var randomNumber;
+
     // generate a random value between 0 and the total number of quotes in the array
-    var randomNumber = Math.floor((Math.random() * quotes.length));
+    randomNumber = Math.floor((Math.random() * quotes.length));
 
-    // return the quote based on the random number
+    // has the number been picked already?
+    if (pickedArr.indexOf(randomNumber) === -1) {
+        // Not been picked but let's add the number to the picked array
+        pickedArr.push(randomNumber);
+        console.log(randomNumber);
+        // return the quote
+        return quotes[randomNumber];
+    }
+
+    // We've already had all quotes displayed so just pick any random number
     return quotes[randomNumber];
-
 }
 
+// a function to generate background colours using red, green and blue codes (0 - 255)
+// No parameters
+// returns the colour based on rgb( red, green, blue)
 function getRandomBackgroundColour() {
 
     var randomRed, randomGrn, randomBlu, rgbColor;
